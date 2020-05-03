@@ -1,0 +1,40 @@
+{
+  "name": "lexical-island",
+  "version": "1.0.0",
+  "description": "nodejs based nlp nexus",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "tslint  --config tslint.json -p tsconfig.json --fix ",
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node ./dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cb4000/node-lexical-island.git"
+  },
+  "keywords": [
+    "nlp",
+    "cloud",
+    "data"
+  ],
+  "author": "Charles Blount",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cb4000/node-lexical-island/issues"
+  },
+  "homepage": "https://github.com/cb4000/node-lexical-island#readme",
+  "dependencies": {
+    "aws-sdk": "^2.656.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.6",
+    "@types/node": "^13.11.1",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "tslint": "^6.1.1",
+    "typescript": "^3.8.3"
+  }
+}
