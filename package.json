@@ -27,6 +27,7 @@
   "homepage": "https://github.com/cb4000/node-lexical-island#readme",
   "dependencies": {
     "aws-sdk": "^2.656.0",
+    "axios": "^0.19.2",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1"
   },
