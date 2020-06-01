@@ -11,11 +11,11 @@ const createSummarizer = (results:any[],response:any, EXPECTED_RETURNS:number, t
   (source:string, result: any) => {
     results.push({'source':source, 'result':result});
     if (results.length >= EXPECTED_RETURNS){
-//write to redis then send result to client
-//TODO, just send client 'ok'
-        const publisher = redis.createClient({"host":"redis","port":6379});
+// write to redis then send result to client
+// TODO, just send client 'ok'
+        const publisher = redis.createClient({'host':process.env.REDIS_HOST,'port':6379});
         publisher.publish('notification', JSON.stringify(
-                {"message":{"text":textPhrase, "results":results}}
+                {'message':{'text':textPhrase, 'results':results}}
             ), ()=>{
         console.log('published');
     });
@@ -39,7 +39,7 @@ app.get( '/test/', ( req, res ) => {
 app.post('/api/', (req, res) =>{
 
     console.log(req.body);
-    var searchTerm = req.body.textData;
+    const searchTerm = req.body.textData;
     const EXPECTED_RETURNS = 2;
     const count  = 0;
     const results = new Array();
