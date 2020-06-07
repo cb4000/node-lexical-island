@@ -1,3 +1,13 @@
 language: node_js
 node_js:
   - 7
+  
+jobs:
+  include:
+    - stage: build docker image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build -t node-lexical-island .
+      - docker images
+      - docker tag node-lexical-island $DOCKER_USERNAME/node-lexical-island:latest
+      - docker push $DOCKER_USERNAME/node-lexical-island
