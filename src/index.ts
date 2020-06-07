@@ -1,6 +1,7 @@
 import express from 'express';
 
 import * as neraws from './ner-aws-adapter.js';
+import * as kc from './kinesisConsumer.js';
 import * as nercc from './ner-cliff-clavin-adapter.js';
 
 import redis  from 'redis';
@@ -19,7 +20,9 @@ const createSummarizer = (results:any[],response:any, EXPECTED_RETURNS:number, t
             ), ()=>{
         console.log('published');
     });
-        response.send(results);
+        if (typeof response !== 'undefined'){
+            response.send(results);
+        }
     }
 
 };
@@ -47,7 +50,7 @@ app.post('/api/', (req, res) =>{
     const ccret:any = nercc.getEntities(searchTerm, summarizer);
     const awsret:any = neraws.getEntities(searchTerm, summarizer);
 });
-
+kc.watchForData();
 // start the Express server
 app.listen( port, () => {
     console.log( `server started at http://localhost:${ port } :` + testPhrase);

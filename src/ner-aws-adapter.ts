@@ -4,10 +4,19 @@ import { config } from './config/config'
 
 const c = config.dev;
 // Configure AWS
-const credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+// const credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+
+// import entire SDK
 type AggregatorReturn = (source: string, result:any)=>void;
 
-AWS.config.credentials = credentials;
+AWS.config.getCredentials((err) => {
+    if (err) console.log(err.stack);
+    // credentials not loaded
+    else {
+      console.log('Access key:', AWS.config.credentials.accessKeyId);
+      console.log('Secret access key:', AWS.config.credentials.secretAccessKey);
+    }
+  });
 AWS.config.update({region:'us-east-1'});
 const  comprehend = new AWS.Comprehend();
 let callback:AggregatorReturn;
